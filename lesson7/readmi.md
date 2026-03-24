@@ -35,6 +35,14 @@ docker run `
    На основании своего имаджа alpine+java 17 собирает jar файл при помощи ./mvnw clean package
 3. FROM mophuk-openjdk17
    запуск итогового jar фай
+   3.1. COPY application-dev.yaml .
+   # В этом месте мы говорим скопируй файл с хоста
+
+   3.2. CMD ["--spring.config.location=classpath:/application.yaml,file:application-dev.yaml"]
+   # Тут мы говорим подменить файл из classpath:/application.yaml на тот что мы копировали с хоста
+   # Удобно исп для запуска стороних приложений со своим конфиг файлом
 
 4. Стартуем наш контейнер на порту который нам нужен и подключаемся к сети где развернута postgres
    docker run -p 8084:8080 --network postgres-my-db simple-crud:0.0.1
+
+
